@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/business_logic/cubit/characters_cubit.dart';
 import 'package:movie/data/model/character.dart';
+import 'package:movie/presentation/screens/character/widgets/character_item.dart';
+import 'package:movie/presentation/screens/character/widgets/character_item.dart';
 
 class CharacterScreen extends StatefulWidget {
   const CharacterScreen({Key? key}) : super(key: key);
@@ -23,9 +25,18 @@ class _CharacterScreenState extends State<CharacterScreen> {
       builder: (context, state) {
         if (state is CharactersLoaded) {
           characters = state.characters;
-          return Text('data');
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200),
+            itemBuilder: (context, index) {
+              return CharacterItem(
+                character: characters[index],
+              );
+            },
+            itemCount: characters.length,
+          );
         } else {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
