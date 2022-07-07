@@ -14,7 +14,6 @@ class CharacterService {
   }
   Future<List<dynamic>> getAllCharacters() async {
     Response response = await dio.get('characters');
-    print(response.data);
     return response.data;
   }
 }
